@@ -1,0 +1,21 @@
+default: &default
+  primary:
+    url: <%= ENV.fetch("DATABASE_PRIMARY_URL", "") %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+  cable:
+    url: <%= ENV.fetch("DATABASE_CABLE_URL", "") %>
+    migrations_paths: db/cable_migrate
+  cache:
+    url: <%= ENV.fetch("DATABASE_CACHE_URL", "") %>
+    migrations_paths: db/cache_migrate
+  queue:
+    url: <%= ENV.fetch("DATABASE_QUEUE_URL", "") %>
+    migrations_paths: db/queue_migrate
